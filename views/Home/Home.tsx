@@ -8,6 +8,7 @@ import { GiFilmSpool } from "react-icons/gi";
 import { GiSpectre } from "react-icons/gi";
 import Planets from "@/components/Planets/Planets";
 import Vehicles from "@/components/Vehicles/Vehicles";
+import Starships from "@/components/Starships/Starships";
 
 const Home = () => {
   const [selectedButton, setSelectedButton] = useState<string | null>(null);
@@ -36,6 +37,7 @@ const Home = () => {
       <div className={styles.rightPortion}>
         {selectedButton === "planets" && <Planets />}
         {selectedButton === "vehicles" && <Vehicles />}
+        {selectedButton === "starShips" && <Starships />}
       </div>
     </div>
   );
@@ -47,12 +49,12 @@ const leftNavigationData = [
     name: "home",
   },
   {
-    icon: <AiFillHome />,
-    name: "spaceShips",
-  },
-  {
     icon: <BiSolidPlanet />,
     name: "planets",
+  },
+  {
+    icon: <AiFillHome />,
+    name: "starShips",
   },
   {
     icon: <BsFillCarFrontFill />,
