@@ -12,19 +12,21 @@ const SpecieCard = () => {
         alt=""
         style={{ borderRadius: "6px" }}
       />
-      {/* name */}
-      <p className={styles.text}>
-        <span className={styles.textType}> classification: </span> mammal
-      </p>
-      {/* climate */}
-      <p className={styles.text}>
-        <span className={styles.textType}>Model:</span> Digger Crawler
-      </p>
-      {/* population */}
-      <p className={styles.text}>
-        <span className={styles.textType}>designation:</span> sentient
-        Corporation
-      </p>
+      <div className={styles.attributes}>
+        {/* name */}
+        <p className={styles.text}>
+          <span className={styles.textType}> classification: </span> mammal
+        </p>
+        {/* climate */}
+        <p className={styles.text}>
+          <span className={styles.textType}>Model:</span> Digger Crawler
+        </p>
+        {/* population */}
+        <p className={styles.text}>
+          <span className={styles.textType}>designation:</span> sentient
+          Corporation
+        </p>
+      </div>
     </div>
   );
 };

@@ -15,7 +15,7 @@ import Species from "@/components/Species/Species";
 import Gif from "@/components/Gif/Gif";
 
 const Home = () => {
-  const [selectedButton, setSelectedButton] = useState<string | null>(null);
+  const [selectedButton, setSelectedButton] = useState<string | null>("home");
 
   return (
     <div className={styles.parent}>

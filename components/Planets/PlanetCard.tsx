@@ -6,12 +6,20 @@ const PlanetCard = () => {
   return (
     <div className={styles.planetCard}>
       <Image src="/assets/planet.png" width={150} height={150} alt="" />
-      {/* name */}
-      <p className={styles.name}>Planet Name</p>
-      {/* climate */}
-      <p className={styles.name}>Climate: arid</p>
-      {/* population */}
-      <p className={styles.name}>population: 200000</p>
+      <div className={styles.attributes}>
+        {/* name */}
+        <p className={styles.text}>
+          <span className={styles.textType}>Name:</span> Earth
+        </p>
+        {/* climate */}
+        <p className={styles.text}>
+          <span className={styles.textType}>Climate:</span> arid
+        </p>
+        {/* population */}
+        <p className={styles.text}>
+          <span className={styles.textType}>population:</span> 200000
+        </p>
+      </div>
     </div>
   );
 };
