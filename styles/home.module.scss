@@ -1,0 +1,32 @@
+@import "variable.module.scss";
+
+.parent {
+  width: 100%;
+  padding: 30px 30px;
+}
+.leftNavigation {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  background-color: $white;
+  box-shadow: 0px 1px 14px 0px rgba(0, 0, 0, 0.75);
+  border-radius: 6px;
+  padding: 14px 14px;
+}
+.tab {
+  height: 45px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  border-radius: 10px;
+  background-color: $color-primary;
+  padding: 0px 16px;
+}
+.tab > :first-child {
+  font-size: 30px;
+  fill: $lightBlack;
+}
+.tab > :last-child {
+  color: $lightBlack;
+}
