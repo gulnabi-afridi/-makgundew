@@ -9,6 +9,7 @@ import { GiSpectre } from "react-icons/gi";
 import Planets from "@/components/Planets/Planets";
 import Vehicles from "@/components/Vehicles/Vehicles";
 import Starships from "@/components/Starships/Starships";
+import Peoples from "@/components/Peoples/Peoples";
 
 const Home = () => {
   const [selectedButton, setSelectedButton] = useState<string | null>(null);
@@ -38,6 +39,7 @@ const Home = () => {
         {selectedButton === "planets" && <Planets />}
         {selectedButton === "vehicles" && <Vehicles />}
         {selectedButton === "starShips" && <Starships />}
+        {selectedButton === "people" && <Peoples />}
       </div>
     </div>
   );
