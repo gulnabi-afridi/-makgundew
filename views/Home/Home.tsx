@@ -7,6 +7,7 @@ import { IoIosPeople } from "react-icons/io";
 import { GiFilmSpool } from "react-icons/gi";
 import { GiSpectre } from "react-icons/gi";
 import Planets from "@/components/Planets/Planets";
+import Vehicles from "@/components/Vehicles/Vehicles";
 
 const Home = () => {
   const [selectedButton, setSelectedButton] = useState<string | null>(null);
@@ -34,6 +35,7 @@ const Home = () => {
       {/* ===> right portion */}
       <div className={styles.rightPortion}>
         {selectedButton === "planets" && <Planets />}
+        {selectedButton === "vehicles" && <Vehicles />}
       </div>
     </div>
   );
@@ -43,6 +45,10 @@ const leftNavigationData = [
   {
     icon: <AiFillHome />,
     name: "home",
+  },
+  {
+    icon: <AiFillHome />,
+    name: "spaceShips",
   },
   {
     icon: <BiSolidPlanet />,
