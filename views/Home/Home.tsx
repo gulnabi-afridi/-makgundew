@@ -12,6 +12,7 @@ import Starships from "@/components/Starships/Starships";
 import Peoples from "@/components/Peoples/Peoples";
 import Films from "@/components/Films/Films";
 import Species from "@/components/Species/Species";
+import Gif from "@/components/Gif/Gif";
 
 const Home = () => {
   const [selectedButton, setSelectedButton] = useState<string | null>(null);
@@ -38,6 +39,7 @@ const Home = () => {
       </div>
       {/* ===> right portion */}
       <div className={styles.rightPortion}>
+        {selectedButton === "home" && <Gif />}
         {selectedButton === "planets" && <Planets />}
         {selectedButton === "vehicles" && <Vehicles />}
         {selectedButton === "starShips" && <Starships />}

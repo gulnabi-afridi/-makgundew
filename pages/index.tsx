@@ -1,5 +1,4 @@
 import Head from "next/head";
-import variables from "../styles/variable.module.scss";
 import Home from "@/views/Home/Home";
 
 export default function HomePage() {
