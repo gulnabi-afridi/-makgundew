@@ -10,6 +10,7 @@ import Planets from "@/components/Planets/Planets";
 import Vehicles from "@/components/Vehicles/Vehicles";
 import Starships from "@/components/Starships/Starships";
 import Peoples from "@/components/Peoples/Peoples";
+import Films from "@/components/Films/Films";
 
 const Home = () => {
   const [selectedButton, setSelectedButton] = useState<string | null>(null);
@@ -40,6 +41,7 @@ const Home = () => {
         {selectedButton === "vehicles" && <Vehicles />}
         {selectedButton === "starShips" && <Starships />}
         {selectedButton === "people" && <Peoples />}
+        {selectedButton === "films" && <Films />}
       </div>
     </div>
   );
