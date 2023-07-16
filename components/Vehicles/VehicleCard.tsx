@@ -2,24 +2,32 @@ import React from "react";
 import styles from "../../styles/vehicles.module.scss";
 import Image from "next/image";
 
-const VehicleCard = () => {
+interface Props {
+  name: string;
+  model: string;
+  manufacturer: string;
+}
+
+const VehicleCard = ({ name, model, manufacturer }: Props) => {
   return (
     <div className={styles.vehicleCard}>
       <Image src="/assets/vehicle.png" width={190} height={160} alt="" />
-      {/* name */}
-      <p className={styles.text}>
-        <span className={styles.textType}> Vehicle Name: </span> Name mdc dn
-        jdcjdbcjdc
-      </p>
-      {/* climate */}
-      <p className={styles.text}>
-        <span className={styles.textType}>Model:</span> Digger Crawler
-      </p>
-      {/* population */}
-      <p className={styles.text}>
-        <span className={styles.textType}>manufacturer:</span> Corellia Mining
-        Corporation
-      </p>
+      <div className={styles.attributes}>
+        {/* name */}
+        <p className={styles.text}>
+          <span className={styles.textType}> Name: </span> {name}
+          jdcjdbcjdc
+        </p>
+        {/* climate */}
+        <p className={styles.text}>
+          <span className={styles.textType}>Model:</span>
+          {model}
+        </p>
+        {/* population */}
+        <p className={styles.text}>
+          <span className={styles.textType}>manufacturer:</span> {manufacturer}
+        </p>
+      </div>
     </div>
   );
 };
