@@ -3,12 +3,17 @@ import Header from "./Header";
 
 interface Props {
   children: ReactNode;
+  selectedButton: string;
+  setSelectedButton: (component: string) => void;
 }
 
-const Layout = ({ children }: Props) => {
+const Layout = ({ children, selectedButton, setSelectedButton }: Props) => {
   return (
     <>
-      <Header />
+      <Header
+        selectedButton={selectedButton}
+        setSelectedButton={setSelectedButton}
+      />
       {children}
     </>
   );

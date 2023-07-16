@@ -1,7 +1,11 @@
+import React, { useState } from "react";
 import Head from "next/head";
 import Home from "@/views/Home/Home";
+import Layout from "@/layout/layout";
 
 export default function HomePage() {
+  const [selectedButton, setSelectedButton] = useState<string>("home");
+
   return (
     <>
       <Head>
@@ -11,7 +15,15 @@ export default function HomePage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Home />
+        <Layout
+          selectedButton={selectedButton}
+          setSelectedButton={setSelectedButton}
+        >
+          <Home
+            selectedButton={selectedButton}
+            setSelectedButton={setSelectedButton}
+          />
+        </Layout>
       </main>
     </>
   );

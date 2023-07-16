@@ -1,4 +1,5 @@
 @import "variable.module.scss";
+@import "mixins";
 
 .header {
   width: 100%;
@@ -9,24 +10,115 @@
   justify-content: flex-end;
   align-items: center;
   background-color: $color-primary;
+  .signIn {
+    width: 90px;
+    height: 36px;
+    background-color: transparent;
+    border: 2px solid $white;
+    border-radius: 10px;
+    color: $white;
+    font-size: 17px;
+    cursor: pointer;
+  }
+  .signUp {
+    width: 90px;
+    height: 36px;
+    background-color: $white;
+    border: 2px solid $white;
+    border-radius: 10px;
+    color: $color-primary;
+    font-size: 17px;
+    cursor: pointer;
+  }
+  .hamburgerParent {
+    display: none;
+  }
+  .drawer {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    .iconDiv {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      .crossIcon {
+        font-size: 45px;
+        display: flex;
+        color: $color-primary;
+      }
+    }
+    .leftNavigation {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+      border-radius: 6px;
+      margin-top: 40px;
+      .tab {
+        height: 58px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 12px;
+        border-radius: 10px;
+        background-color: $white;
+        padding: 0px 16px;
+        border: none;
+        cursor: pointer;
+
+        &:hover,
+        &.selected {
+          background-color: $color-primary;
+
+          > :first-child {
+            fill: $white;
+          }
+
+          > :last-child {
+            color: $white;
+          }
+        }
+
+        > :first-child {
+          font-size: 30px;
+          fill: $lightBlack;
+        }
+
+        > :last-child {
+          font-size: 18px;
+          font-family: "Inter", sans-serif;
+          font-weight: 500;
+          color: $lightBlack;
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
 }
-.signIn {
-  width: 90px;
-  height: 36px;
-  background-color: transparent;
-  border: 2px solid $white;
-  border-radius: 10px;
-  color: $white;
-  font-size: 17px;
-  cursor: pointer;
+
+// media qurries
+
+@include desktop() {
+  .hamburgerParent {
+    display: block !important;
+  }
+  .signIn {
+    display: none !important;
+  }
+  .signUp {
+    display: none !important;
+  }
+  .drawer {
+    width: 70% !important;
+  }
 }
-.signUp {
-  width: 90px;
-  height: 36px;
-  background-color: $white;
-  border: 2px solid $white;
-  border-radius: 10px;
-  color: $color-primary;
-  font-size: 17px;
-  cursor: pointer;
+
+@include mobile() {
+  .header {
+    padding: 0px 16px;
+  }
+  .drawer {
+    width: 100% !important;
+  }
 }
