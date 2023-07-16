@@ -1,35 +1,103 @@
 @import "variable.module.scss";
 
 .planetsParent {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 18px;
-}
-.planetCard {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: $white;
-  padding: 20px;
-  box-shadow: 0px 1px 14px -3px rgba(0, 0, 0, 0.35);
+  gap: 5rem;
 
-  .text {
-    font-size: 18px;
-    font-weight: 500;
-    font-family: "Inter", sans-serif;
-    text-transform: capitalize;
-    text-align: center;
+  .cardsParent {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-items: center;
+    gap: 22px;
+
+    .planetCard {
+      width: 100%;
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: $white;
+      padding: 20px;
+      box-shadow: 0px 1px 14px -3px rgba(0, 0, 0, 0.35);
+
+      .text {
+        font-size: 18px;
+        font-weight: 500;
+        font-family: "Inter", sans-serif;
+        text-transform: capitalize;
+        text-align: center;
+      }
+
+      .textType {
+        color: $color-primary;
+        font-weight: 400;
+      }
+
+      .attributes {
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+        padding: 20px 0px;
+      }
+    }
   }
-  .textType {
-    color: $color-primary;
-    font-weight: 400;
-  }
-  .attributes {
+
+  .pagination {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    gap: 11px;
-    padding: 20px 0px;
+    justify-content: center;
+    gap: 14px;
+    align-items: center;
+
+    .btn {
+      width: 39px;
+      height: 38px;
+      cursor: pointer;
+      font-size: 20px;
+      font-family: "Inter", sans-serif;
+      border: none;
+      font-weight: 500;
+      border-radius: 6px;
+      user-select: none;
+    }
+
+    .activeBtn {
+      background-color: $color-primary;
+    }
+
+    .arrowLeft,
+    .arrowRight {
+      cursor: pointer;
+      color: black;
+      font-size: 23px;
+    }
+
+    .arrowLeft {
+      margin-right: 14px;
+    }
+
+    .arrowRight {
+      transform: rotate(180deg);
+      margin-left: 14px;
+    }
+  }
+
+  .pagination > :first-child,
+  .pagination > :last-child {
+    background-color: transparent;
+    border: none;
+  }
+
+  .pagination > :first-child:disabled .arrowLeft,
+  .pagination > :last-child:disabled .arrowRight {
+    color: #b9b9b9;
   }
 }
