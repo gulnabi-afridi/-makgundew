@@ -59,6 +59,13 @@
   }
 }
 
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 @include mobile() {
   .cardsParent {
     max-width: 300px !important;

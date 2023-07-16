@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "../../styles/films.module.scss";
 import FilmCard from "./FilmCard";
 import Pagination from "../Pagination/Pagination";
+import Loader from "../Loader/Loader";
 
 interface Film {
   name: string;
@@ -61,30 +62,38 @@ const Films = () => {
   };
 
   return (
-    <div className={styles.filmParent}>
-      <div className={styles.cardsParent}>
-        {/* ===> vehicles  */}
-        {currentFilms.map((item, index) => {
-          return (
-            <FilmCard
-              name={item.name}
-              producer={item.producer}
-              director={item.director}
-              key={index}
-            />
-          );
-        })}
-      </div>
-      {/* Pagination -----------------------> */}
-      <Pagination
-        numOfCards={films}
-        cardsPerPage={filmsPerPage}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        goToPrevPage={goToPrevPage}
-        goToNextPage={goToNextPage}
-      />
-    </div>
+    <>
+      {isLoaded ? (
+        <div className={styles.loader}>
+          <Loader />
+        </div>
+      ) : (
+        <div className={styles.filmParent}>
+          <div className={styles.cardsParent}>
+            {/* ===> vehicles  */}
+            {currentFilms.map((item, index) => {
+              return (
+                <FilmCard
+                  name={item.name}
+                  producer={item.producer}
+                  director={item.director}
+                  key={index}
+                />
+              );
+            })}
+          </div>
+          {/* Pagination -----------------------> */}
+          <Pagination
+            numOfCards={films}
+            cardsPerPage={filmsPerPage}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            goToPrevPage={goToPrevPage}
+            goToNextPage={goToNextPage}
+          />
+        </div>
+      )}
+    </>
   );
 };
 

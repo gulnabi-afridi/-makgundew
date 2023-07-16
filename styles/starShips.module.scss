@@ -49,6 +49,13 @@
   }
 }
 
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 // ===> media qurries
 @include tablet() {
   .shipParent {

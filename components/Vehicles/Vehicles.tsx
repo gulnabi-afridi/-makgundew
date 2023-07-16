@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "../../styles/vehicles.module.scss";
 import VehicleCard from "./VehicleCard";
 import Pagination from "../Pagination/Pagination";
+import Loader from "../Loader/Loader";
 
 interface Vehicle {
   name: string;
@@ -65,30 +66,38 @@ const Vehicles = () => {
   };
 
   return (
-    <div className={styles.vehicleParent}>
-      <div className={styles.cardsParent}>
-        {/* ===> vehicles  */}
-        {currentVehicles.map((vehicle, index) => {
-          return (
-            <VehicleCard
-              name={vehicle.name}
-              model={vehicle.model}
-              manufacturer={vehicle.manufacturer}
-              key={index}
-            />
-          );
-        })}
-      </div>
-      {/* Pagination -----------------------> */}
-      <Pagination
-        numOfCards={vehicles}
-        cardsPerPage={vehiclePerPage}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        goToPrevPage={goToPrevPage}
-        goToNextPage={goToNextPage}
-      />
-    </div>
+    <>
+      {isLoaded ? (
+        <div className={styles.loader}>
+          <Loader />
+        </div>
+      ) : (
+        <div className={styles.vehicleParent}>
+          <div className={styles.cardsParent}>
+            {/* ===> vehicles  */}
+            {currentVehicles.map((vehicle, index) => {
+              return (
+                <VehicleCard
+                  name={vehicle.name}
+                  model={vehicle.model}
+                  manufacturer={vehicle.manufacturer}
+                  key={index}
+                />
+              );
+            })}
+          </div>
+          {/* Pagination -----------------------> */}
+          <Pagination
+            numOfCards={vehicles}
+            cardsPerPage={vehiclePerPage}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            goToPrevPage={goToPrevPage}
+            goToNextPage={goToNextPage}
+          />
+        </div>
+      )}
+    </>
   );
 };
 

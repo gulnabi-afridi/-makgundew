@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "../../styles/starShips.module.scss";
 import StarshipCard from "./StarshipCard";
 import Pagination from "../Pagination/Pagination";
+import Loader from "../Loader/Loader";
 
 interface Starship {
   name: string;
@@ -62,30 +63,38 @@ const Starships = () => {
   };
 
   return (
-    <div className={styles.shipParent}>
-      <div className={styles.cardsParent}>
-        {/* ===> vehicles  */}
-        {currentPlanets.map((item, index) => {
-          return (
-            <StarshipCard
-              name={item.name}
-              model={item.model}
-              manufacturer={item.manufacturer}
-              key={index}
-            />
-          );
-        })}
-      </div>
-      {/* Pagination -----------------------> */}
-      <Pagination
-        numOfCards={starShips}
-        cardsPerPage={shipsPerPage}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        goToPrevPage={goToPrevPage}
-        goToNextPage={goToNextPage}
-      />
-    </div>
+    <>
+      {isLoaded ? (
+        <div className={styles.loader}>
+          <Loader />
+        </div>
+      ) : (
+        <div className={styles.shipParent}>
+          <div className={styles.cardsParent}>
+            {/* ===> vehicles  */}
+            {currentPlanets.map((item, index) => {
+              return (
+                <StarshipCard
+                  name={item.name}
+                  model={item.model}
+                  manufacturer={item.manufacturer}
+                  key={index}
+                />
+              );
+            })}
+          </div>
+          {/* Pagination -----------------------> */}
+          <Pagination
+            numOfCards={starShips}
+            cardsPerPage={shipsPerPage}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            goToPrevPage={goToPrevPage}
+            goToNextPage={goToNextPage}
+          />
+        </div>
+      )}
+    </>
   );
 };
 
