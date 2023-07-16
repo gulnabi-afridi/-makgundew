@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../styles/planets.module.scss";
 import PlanetCard from "./PlanetCard";
-import { HiArrowLeft } from "react-icons/hi";
 import Pagination from "../Pagination/Pagination";
 import Loader from "../Loader/Loader";
 
