@@ -27,8 +27,8 @@ const Vehicles = () => {
         // Extracting only the required fields from each planet object --------------------->
         const extractedPlanets = data.results.map((vehicle: any) => ({
           name: vehicle.name,
-          climate: vehicle.climate,
-          population: vehicle.population,
+          model: vehicle.model,
+          manufacturer: vehicle.manufacturer,
         }));
 
         setVehicle(extractedPlanets);
