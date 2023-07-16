@@ -1,4 +1,5 @@
 @import "variable.module.scss";
+@import "mixins";
 
 .pagination {
   width: 100%;
@@ -49,4 +50,10 @@
 .pagination > :first-child:disabled .arrowLeft,
 .pagination > :last-child:disabled .arrowRight {
   color: #b9b9b9;
+}
+
+@include tablet() {
+  .pagination {
+    margin-bottom: 4rem;
+  }
 }
