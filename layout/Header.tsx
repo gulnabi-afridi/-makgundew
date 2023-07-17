@@ -5,7 +5,6 @@ import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import { RxCross2 } from "react-icons/rx";
 import { Data } from "@/data/JSON";
-import SignUp from "@/components/SignUp/SignUp";
 import { UseAuthContext } from "../authContext/AuthContext";
 
 interface Props {
