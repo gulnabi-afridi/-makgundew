@@ -8,13 +8,26 @@ import Films from "@/components/Films/Films";
 import Species from "@/components/Species/Species";
 import Gif from "@/components/Gif/Gif";
 import { Data } from "../../data/JSON";
+import SignUp from "@/components/SignUp/SignUp";
+import SignIn from "@/components/SignIn/SignIn";
 
 interface Props {
   selectedButton: string;
   setSelectedButton: (component: string) => void;
+  signIn: boolean;
+  setSignIn: (a: boolean) => void;
+  signUp: boolean;
+  setSignUp: (a: boolean) => void;
 }
 
-const Home = ({ selectedButton, setSelectedButton }: Props) => {
+const Home = ({
+  selectedButton,
+  setSelectedButton,
+  signIn,
+  setSignIn,
+  signUp,
+  setSignUp,
+}: Props) => {
   return (
     <div className={styles.parent}>
       {/* left navigation */}
@@ -22,7 +35,10 @@ const Home = ({ selectedButton, setSelectedButton }: Props) => {
         {Data.navigationData.map((item, index) => {
           return (
             <button
-              onClick={() => setSelectedButton(item.name)}
+              onClick={() => {
+                setSelectedButton(item.name);
+                setSignUp(false);
+              }}
               key={index}
               className={`${styles.tab} ${
                 selectedButton === item.name ? styles.selected : ""
@@ -37,7 +53,11 @@ const Home = ({ selectedButton, setSelectedButton }: Props) => {
       </div>
       {/* ===> right portion */}
       <div className={styles.rightPortion}>
-        {selectedButton === "home" && <Gif />}
+        {selectedButton === "home" && signIn === false && signUp === false && (
+          <Gif />
+        )}
+        {signUp === true && <SignUp signUp={signUp} setSignUp={setSignUp} />}
+        {signIn === true && <SignIn signIn={signIn} setSignIn={setSignIn} />}
         {selectedButton === "planets" && <Planets />}
         {selectedButton === "vehicles" && <Vehicles />}
         {selectedButton === "starShips" && <Starships />}

@@ -4,13 +4,29 @@ import Header from "./Header";
 interface Props {
   children: ReactNode;
   selectedButton: string;
+  signIn: boolean;
+  setSignIn: (a: boolean) => void;
+  signUp: boolean;
+  setSignUp: (a: boolean) => void;
   setSelectedButton: (component: string) => void;
 }
 
-const Layout = ({ children, selectedButton, setSelectedButton }: Props) => {
+const Layout = ({
+  children,
+  selectedButton,
+  setSelectedButton,
+  setSignIn,
+  signIn,
+  signUp,
+  setSignUp,
+}: Props) => {
   return (
     <>
       <Header
+        signIn={signIn}
+        signUp={signUp}
+        setSignIn={setSignIn}
+        setSignUp={setSignUp}
         selectedButton={selectedButton}
         setSelectedButton={setSelectedButton}
       />

@@ -5,6 +5,8 @@ import Layout from "@/layout/layout";
 
 export default function HomePage() {
   const [selectedButton, setSelectedButton] = useState<string>("home");
+  const [signIn, setSignIn] = useState(false);
+  const [signUp, setSignUp] = useState(false);
 
   return (
     <>
@@ -18,10 +20,18 @@ export default function HomePage() {
         <Layout
           selectedButton={selectedButton}
           setSelectedButton={setSelectedButton}
+          signIn={signIn}
+          setSignIn={setSignIn}
+          signUp={signUp}
+          setSignUp={setSignUp}
         >
           <Home
             selectedButton={selectedButton}
             setSelectedButton={setSelectedButton}
+            signIn={signIn}
+            setSignIn={setSignIn}
+            signUp={signUp}
+            setSignUp={setSignUp}
           />
         </Layout>
       </main>
