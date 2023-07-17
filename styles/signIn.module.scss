@@ -1,1 +1,78 @@
 @import "variable.module.scss";
+
+.signInParent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .signIn {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+    padding: 65px 30px;
+    width: 450px;
+    border-radius: 6px;
+    box-shadow: 0px 1px 14px -3px rgba(0, 0, 0, 0.35);
+    .text {
+      color: $color-primary;
+      font-size: 36px;
+      font-weight: 600;
+      font-family: "Inter", sans-serif;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .inputDiv {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      .label {
+        font-size: 16px;
+        font-family: "Inter", sans-serif;
+        color: black;
+      }
+      .input {
+        height: 46px;
+        border: 2px solid $color-primary;
+        border-radius: 8px;
+        outline: none;
+        padding: 0px 10px;
+        font-size: 16px;
+        color: black;
+        font-family: "Inter", sans-serif;
+        font-weight: 500;
+      }
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      .cancelBtn {
+        width: 100px;
+        height: 44px;
+        font-size: 16px;
+        font-family: "Inter", sans-serif;
+        font-weight: 500;
+        background-color: transparent;
+        border: 2px solid $color-primary;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .signUpBtn {
+        width: 100px;
+        height: 44px;
+        background-color: $color-primary;
+        font-weight: 500;
+        font-size: 16px;
+        font-family: "Inter", sans-serif;
+        border-radius: 6px;
+        color: $white;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  }
+}

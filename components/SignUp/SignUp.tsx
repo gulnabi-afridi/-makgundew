@@ -22,14 +22,18 @@ const SignUp = ({ signUp, setSignUp }: Props) => {
     });
   };
 
-  const handleFormSubmission = (e: any) => {
-    e.preventDefault();
+  const handleFormSubmission = (event: any) => {
+    event.preventDefault();
+    const { name, email, password } = signUpData;
+    const userData = { name, email, password };
+    localStorage.setItem("userData", JSON.stringify(userData));
     setSignUp(false);
+    alert("Hurrh!! you are registered successfully");
   };
 
   return (
     <div className={styles.signUpParent}>
-      <form className={styles.signUp}>
+      <form onSubmit={handleFormSubmission} className={styles.signUp}>
         <p className={styles.text}>Sign Up</p>
         {/* ===> name input */}
         <div className={styles.inputDiv}>
@@ -84,11 +88,7 @@ const SignUp = ({ signUp, setSignUp }: Props) => {
           >
             Cancel
           </button>
-          <button
-            onClick={handleFormSubmission}
-            type="submit"
-            className={styles.signUpBtn}
-          >
+          <button type="submit" className={styles.signUpBtn}>
             Sign Up
           </button>
         </div>
