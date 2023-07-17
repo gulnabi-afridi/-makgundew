@@ -6,11 +6,10 @@ import Toast from "../Toast/Toast";
 import "react-toastify/dist/ReactToastify.css";
 
 interface Props {
-  signUp: boolean;
   setSignUp: (e: boolean) => void;
 }
 
-const SignUp = ({ signUp, setSignUp }: Props) => {
+const SignUp = ({ setSignUp }: Props) => {
   const [signUpData, setSignUpData] = useState({
     name: "",
     email: "",

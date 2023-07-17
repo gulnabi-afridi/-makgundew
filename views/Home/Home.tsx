@@ -12,6 +12,7 @@ import SignUp from "@/components/SignUp/SignUp";
 import SignIn from "@/components/SignIn/SignIn";
 import { UseAuthContext } from "@/authContext/AuthContext";
 
+// types declaration
 interface Props {
   selectedButton: string;
   setSelectedButton: (component: string) => void;
@@ -29,7 +30,7 @@ const Home = ({
   signUp,
   setSignUp,
 }: Props) => {
-  const { userAuthenticated, setUserAuthenticated } = UseAuthContext();
+  const { userAuthenticated } = UseAuthContext();
 
   return (
     <div className={styles.parent}>
@@ -61,9 +62,9 @@ const Home = ({
           !signIn &&
           !signUp && <Gif />}
 
-        {signUp === true && <SignUp signUp={signUp} setSignUp={setSignUp} />}
-        {signIn === true && <SignIn signIn={signIn} setSignIn={setSignIn} />}
-        {!userAuthenticated && <SignIn signIn={signIn} setSignIn={setSignIn} />}
+        {signUp === true && <SignUp setSignUp={setSignUp} />}
+        {signIn === true && <SignIn setSignIn={setSignIn} />}
+        {!userAuthenticated && <SignIn setSignIn={setSignIn} />}
 
         {userAuthenticated && selectedButton === "planets" && <Planets />}
         {userAuthenticated && selectedButton === "vehicles" && <Vehicles />}

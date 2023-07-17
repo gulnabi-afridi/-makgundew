@@ -10,18 +10,14 @@ import { UseAuthContext } from "../authContext/AuthContext";
 interface Props {
   selectedButton: string;
   setSelectedButton: (component: string) => void;
-  signIn: boolean;
   setSignIn: (a: boolean) => void;
-  signUp: boolean;
   setSignUp: (a: boolean) => void;
 }
 
 const Header = ({
   selectedButton,
   setSelectedButton,
-  signIn,
   setSignIn,
-  signUp,
   setSignUp,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);

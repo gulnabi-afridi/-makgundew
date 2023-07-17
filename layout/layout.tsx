@@ -23,8 +23,6 @@ const Layout = ({
   return (
     <>
       <Header
-        signIn={signIn}
-        signUp={signUp}
         setSignIn={setSignIn}
         setSignUp={setSignUp}
         selectedButton={selectedButton}

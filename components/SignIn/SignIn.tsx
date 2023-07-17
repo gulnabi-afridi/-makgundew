@@ -6,11 +6,10 @@ import Toast from "../Toast/Toast";
 import "react-toastify/dist/ReactToastify.css";
 
 interface Props {
-  signIn: boolean;
   setSignIn: (e: boolean) => void;
 }
 
-const SignIn = ({ signIn, setSignIn }: Props) => {
+const SignIn = ({ setSignIn }: Props) => {
   const [signInData, setSignInData] = useState({
     email: "",
     password: "",
@@ -33,8 +32,6 @@ const SignIn = ({ signIn, setSignIn }: Props) => {
     const storedUserData = localStorage.getItem("userData");
     if (storedUserData) {
       const userData = JSON.parse(storedUserData);
-      //   console.log(userData);
-      //   console.log(email, password);
       if (userData.email === email && userData.password === password) {
         setUserAuthenticated(true);
       } else {
