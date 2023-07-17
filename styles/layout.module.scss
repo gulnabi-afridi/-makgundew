@@ -20,6 +20,9 @@
     font-size: 17px;
     cursor: pointer;
   }
+  .logined {
+    display: none !important;
+  }
   .signUp {
     width: 90px;
     height: 36px;
@@ -29,6 +32,12 @@
     color: $color-primary;
     font-size: 17px;
     cursor: pointer;
+  }
+  .loginText {
+    font-size: 24px;
+    font-weight: 600;
+    font-family: "Inter", sans-serif;
+    color: $white;
   }
   .hamburgerParent {
     display: none;

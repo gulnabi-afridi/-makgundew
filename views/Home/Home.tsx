@@ -10,6 +10,7 @@ import Gif from "@/components/Gif/Gif";
 import { Data } from "../../data/JSON";
 import SignUp from "@/components/SignUp/SignUp";
 import SignIn from "@/components/SignIn/SignIn";
+import { UseAuthContext } from "@/authContext/AuthContext";
 
 interface Props {
   selectedButton: string;
@@ -28,6 +29,8 @@ const Home = ({
   signUp,
   setSignUp,
 }: Props) => {
+  const { userAuthenticated, setUserAuthenticated } = UseAuthContext();
+
   return (
     <div className={styles.parent}>
       {/* left navigation */}
@@ -53,17 +56,21 @@ const Home = ({
       </div>
       {/* ===> right portion */}
       <div className={styles.rightPortion}>
-        {selectedButton === "home" && signIn === false && signUp === false && (
-          <Gif />
-        )}
+        {userAuthenticated &&
+          selectedButton === "home" &&
+          !signIn &&
+          !signUp && <Gif />}
+
         {signUp === true && <SignUp signUp={signUp} setSignUp={setSignUp} />}
         {signIn === true && <SignIn signIn={signIn} setSignIn={setSignIn} />}
-        {selectedButton === "planets" && <Planets />}
-        {selectedButton === "vehicles" && <Vehicles />}
-        {selectedButton === "starShips" && <Starships />}
-        {selectedButton === "people" && <Peoples />}
-        {selectedButton === "films" && <Films />}
-        {selectedButton === "species" && <Species />}
+        {!userAuthenticated && <SignIn signIn={signIn} setSignIn={setSignIn} />}
+
+        {userAuthenticated && selectedButton === "planets" && <Planets />}
+        {userAuthenticated && selectedButton === "vehicles" && <Vehicles />}
+        {userAuthenticated && selectedButton === "starShips" && <Starships />}
+        {userAuthenticated && selectedButton === "people" && <Peoples />}
+        {userAuthenticated && selectedButton === "films" && <Films />}
+        {userAuthenticated && selectedButton === "species" && <Species />}
       </div>
     </div>
   );

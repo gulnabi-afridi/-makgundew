@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "../../styles/signUp.module.scss";
+import { UseAuthContext } from "@/authContext/AuthContext";
 
 interface Props {
   signUp: boolean;
@@ -12,6 +13,8 @@ const SignUp = ({ signUp, setSignUp }: Props) => {
     email: "",
     password: "",
   });
+
+  const { setUserAuthenticated } = UseAuthContext();
 
   const handleSetFormData = (event: any) => {
     const { name, value } = event.target;
@@ -28,6 +31,7 @@ const SignUp = ({ signUp, setSignUp }: Props) => {
     const userData = { name, email, password };
     localStorage.setItem("userData", JSON.stringify(userData));
     setSignUp(false);
+    setUserAuthenticated(true);
     alert("Hurrh!! you are registered successfully");
   };
 
@@ -79,15 +83,6 @@ const SignUp = ({ signUp, setSignUp }: Props) => {
         </div>
         {/* =====> buttons */}
         <div className={styles.buttons}>
-          <button
-            onClick={() => {
-              setSignUp(false);
-            }}
-            type="button"
-            className={styles.cancelBtn}
-          >
-            Cancel
-          </button>
           <button type="submit" className={styles.signUpBtn}>
             Sign Up
           </button>

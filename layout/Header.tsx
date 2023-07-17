@@ -6,6 +6,7 @@ import "react-modern-drawer/dist/index.css";
 import { RxCross2 } from "react-icons/rx";
 import { Data } from "@/data/JSON";
 import SignUp from "@/components/SignUp/SignUp";
+import { UseAuthContext } from "../authContext/AuthContext";
 
 interface Props {
   selectedButton: string;
@@ -26,6 +27,8 @@ const Header = ({
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const { userAuthenticated, setUserAuthenticated } = UseAuthContext();
+
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
   };
@@ -39,7 +42,9 @@ const Header = ({
             setSignUp(false);
             setSignIn(true);
           }}
-          className={styles.signIn}
+          className={` ${
+            userAuthenticated === true ? styles.logined : styles.signIn
+          }`}
         >
           Login
         </button>
@@ -48,10 +53,15 @@ const Header = ({
             setSignUp(true);
             setSignIn(false);
           }}
-          className={styles.signUp}
+          className={` ${
+            userAuthenticated === true ? styles.logined : styles.signUp
+          }`}
         >
           SignUp
         </button>
+        {userAuthenticated && (
+          <p className={styles.loginText}>You are log in.....😎</p>
+        )}
         <div className={styles.hamburgerParent}>
           <Hamburger
             color="white"

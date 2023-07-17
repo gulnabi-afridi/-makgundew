@@ -6,7 +6,7 @@ import Layout from "@/layout/layout";
 export default function HomePage() {
   const [selectedButton, setSelectedButton] = useState<string>("home");
   const [signIn, setSignIn] = useState(false);
-  const [signUp, setSignUp] = useState(true);
+  const [signUp, setSignUp] = useState(false);
 
   return (
     <>

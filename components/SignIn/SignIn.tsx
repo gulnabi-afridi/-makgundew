@@ -1,5 +1,6 @@
 import React, { use, useState } from "react";
 import styles from "../../styles/signIn.module.scss";
+import { UseAuthContext } from "@/authContext/AuthContext";
 
 interface Props {
   signIn: boolean;
@@ -11,7 +12,9 @@ const SignIn = ({ signIn, setSignIn }: Props) => {
     email: "",
     password: "",
   });
+
   const [loginError, setLoginError] = useState("");
+  const { setUserAuthenticated } = UseAuthContext();
 
   const handleSetFormData = (event: any) => {
     const { name, value } = event.target;
@@ -20,8 +23,6 @@ const SignIn = ({ signIn, setSignIn }: Props) => {
       [name]: value,
     });
   };
-
-  console.log(signInData.password);
 
   const handleFormSubmission = (e: any) => {
     e.preventDefault();
@@ -32,6 +33,7 @@ const SignIn = ({ signIn, setSignIn }: Props) => {
       //   console.log(userData);
       //   console.log(email, password);
       if (userData.email === email && userData.password === password) {
+        setUserAuthenticated(true);
         alert("You are login!!!!");
       } else {
         alert("Invalid username or password");
@@ -44,7 +46,7 @@ const SignIn = ({ signIn, setSignIn }: Props) => {
 
   return (
     <div className={styles.signInParent}>
-      <form className={styles.signIn}>
+      <form onSubmit={handleFormSubmission} className={styles.signIn}>
         <p className={styles.text}>Sign In</p>
 
         {/* ===> email input */}
@@ -77,11 +79,7 @@ const SignIn = ({ signIn, setSignIn }: Props) => {
         </div>
         {/* =====> buttons */}
         <div className={styles.buttons}>
-          <button
-            type="submit"
-            onClick={handleFormSubmission}
-            className={styles.signUpBtn}
-          >
+          <button type="submit" className={styles.signUpBtn}>
             Sign In
           </button>
         </div>
