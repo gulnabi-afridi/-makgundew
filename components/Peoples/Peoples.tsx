@@ -15,8 +15,9 @@ const Peoples = () => {
   // states ------------------------------->
   const [peoples, setPeoples] = useState<People[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [peoplesPerPage] = useState(3);
+  const [nextPageUrl, setNextPageUrl] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(true);
+  const [totalPages, setTotalPages] = useState(0);
 
   // here we are fetching the data from the api ------------------->
   useEffect(() => {
@@ -34,6 +35,8 @@ const Peoples = () => {
         }));
 
         setPeoples(extractedPlanets);
+        setNextPageUrl(data.next); // Set the URL of the next page
+        setTotalPages(Math.ceil(data.count / data.results.length)); // Calculate the total number of pages
         setIsLoaded(false);
       } catch (error) {
         console.log("Error fetching planets:🔥", error);
@@ -43,23 +46,26 @@ const Peoples = () => {
     fetchPeoples();
   }, []);
 
-  // Calculate current planets to display based on pagination ------------------>
-  const indexOfLastPeople = currentPage * peoplesPerPage;
-  const indexOfFirstPeople = indexOfLastPeople - peoplesPerPage;
-  const currentPeoples = peoples.slice(indexOfFirstPeople, indexOfLastPeople);
+  // Fetch the next page of data ------------------------>
+  const fetchNextPage = async (page: number) => {
+    try {
+      setIsLoaded(true);
+      const response = await fetch(
+        `https://swapi.dev/api/people/?page=${page}`
+      );
+      const data = await response.json();
+      const extractedPlanets = data.results.map((people: any) => ({
+        name: people.name,
+        height: people.height,
+        mass: people.mass,
+        gender: people.gender,
+      }));
 
-  // Go to previous page ----------------------->
-  const goToPrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1);
-    }
-  };
-
-  // Go to next page ----------------->
-  const goToNextPage = () => {
-    const totalPages = Math.ceil(peoples.length / peoplesPerPage);
-    if (currentPage < totalPages) {
-      setCurrentPage((prevPage) => prevPage + 1);
+      setPeoples(extractedPlanets);
+      setNextPageUrl(data.next); // Set the URL of the next page
+      setIsLoaded(false);
+    } catch (error) {
+      console.log("Error fetching planets:🔥", error);
     }
   };
 
@@ -70,29 +76,30 @@ const Peoples = () => {
           <Loader />
         </div>
       ) : (
-        <div className={styles.peopleParent}>
-          <div className={styles.cardsParent}>
-            {/* ===> vehicles  */}
-            {currentPeoples.map((item, index) => {
-              return (
-                <PeopleCard
-                  name={item.name}
-                  mass={item.mass}
-                  height={item.height}
-                  gender={item.gender}
-                  key={index}
-                />
-              );
-            })}
+        <div className={styles.parent}>
+          <div className={styles.peopleParent}>
+            <div className={styles.cardsParent}>
+              {/* ===> vehicles  */}
+              {peoples.map((item, index) => {
+                return (
+                  <PeopleCard
+                    name={item.name}
+                    mass={item.mass}
+                    height={item.height}
+                    gender={item.gender}
+                    key={index}
+                  />
+                );
+              })}
+            </div>
           </div>
           {/* Pagination -----------------------> */}
           <Pagination
-            numOfCards={peoples}
-            cardsPerPage={peoplesPerPage}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            goToPrevPage={goToPrevPage}
-            goToNextPage={goToNextPage}
+            numOfCards={peoples.length}
+            fetchNextPage={fetchNextPage}
+            totalPages={totalPages}
           />
         </div>
       )}

@@ -1,46 +1,58 @@
 import React from "react";
 import { HiArrowLeft } from "react-icons/hi";
+import { HiArrowRight } from "react-icons/hi";
 import styles from "../../styles/pagination.module.scss";
 
 interface Props {
-  numOfCards: object[];
-  cardsPerPage: number;
+  numOfCards: number;
   currentPage: number;
-  setCurrentPage: (pageNumber: number) => void;
-  goToPrevPage: () => void;
-  goToNextPage: () => void;
+  setCurrentPage: (e: number) => void;
+  fetchNextPage: (e: number) => void;
+  totalPages: number;
 }
 
 const Pagination = ({
-  numOfCards,
-  cardsPerPage,
-  goToPrevPage,
-  goToNextPage,
   currentPage,
   setCurrentPage,
+  numOfCards,
+  fetchNextPage,
+  totalPages,
 }: Props) => {
+  const goToPrevPage = () => {
+    if (currentPage > 1) {
+      fetchNextPage(currentPage - 1);
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const goToNextPage = () => {
+    const pages = totalPages;
+    if (currentPage < pages) {
+      fetchNextPage(currentPage + 1);
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   return (
     <div className={styles.pagination}>
       <button disabled={currentPage === 1} onClick={goToPrevPage}>
         <HiArrowLeft className={styles.arrowLeft} />
       </button>
-      {Array.from({ length: Math.ceil(numOfCards.length / cardsPerPage) }).map(
-        (_, index) => (
-          <button
-            className={`${styles.btn} ${
-              currentPage === index + 1 ? styles.activeBtn : ""
-            }`}
-            key={index}
-            onClick={() => setCurrentPage(index + 1)}
-          >
-            {index + 1}
-          </button>
-        )
-      )}
-      <button
-        disabled={currentPage === Math.ceil(numOfCards.length / cardsPerPage)}
-        onClick={goToNextPage}
-      >
+      {Array.from({ length: totalPages }).map((_, index) => (
+        <button
+          className={`${styles.btn} ${
+            currentPage === index + 1 ? styles.activeBtn : ""
+          }`}
+          key={index}
+          onClick={() => {
+            fetchNextPage(index + 1);
+            setCurrentPage(index + 1);
+          }}
+        >
+          {index + 1}
+        </button>
+      ))}
+      <button disabled={currentPage === totalPages} onClick={goToNextPage}>
         <HiArrowLeft className={styles.arrowRight} />
       </button>
     </div>
@@ -48,3 +60,30 @@ const Pagination = ({
 };
 
 export default Pagination;
+
+{
+  /* <div className={styles.pagination}>
+<button disabled={currentPage === 1} onClick={goToPrevPage}>
+  <HiArrowLeft className={styles.arrowLeft} />
+</button>
+{Array.from({ length: Math.ceil(numOfCards.length / cardsPerPage) }).map(
+  (_, index) => (
+    <button
+      className={`${styles.btn} ${
+        currentPage === index + 1 ? styles.activeBtn : ""
+      }`}
+      key={index}
+      onClick={() => setCurrentPage(index + 1)}
+    >
+      {index + 1}
+    </button>
+  )
+)}
+<button
+  disabled={currentPage === Math.ceil(numOfCards.length / cardsPerPage)}
+  onClick={goToNextPage}
+>
+  <HiArrowLeft className={styles.arrowRight} />
+</button>
+</div> */
+}
