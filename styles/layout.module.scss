@@ -120,9 +120,34 @@
   }
   .drawer {
     width: 70% !important;
+    .mobileSignIn {
+      width: 110px;
+      height: 45px;
+      background-color: $color-primary;
+      border-radius: 8px;
+      border: none;
+      font-size: 20px;
+      font-weight: 500;
+      color: $white;
+    }
+    .mobileSignUp {
+      width: 110px;
+      height: 45px;
+      background-color: transparent;
+      color: $color-primary;
+      font-weight: 500;
+      border-radius: 8px;
+      border: 2px solid $color-primary;
+      font-size: 20px;
+    }
   }
 }
 
+@include desktop() {
+  .loginText {
+    color: $color-primary !important;
+  }
+}
 @include mobile() {
   .header {
     padding: 0px 16px;

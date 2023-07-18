@@ -15,8 +15,9 @@ const Starships = () => {
   // states ------------------------------->
   const [starShips, setStarShips] = useState<Starship[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [shipsPerPage] = useState(3);
+  const [nextPageUrl, setNextPageUrl] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(true);
+  const [totalPages, setTotalPages] = useState(0);
 
   // here we are fetching the data from the api ------------------->
   useEffect(() => {
@@ -33,6 +34,8 @@ const Starships = () => {
         }));
 
         setStarShips(extractedPlanets);
+        setNextPageUrl(data.next); // Set the URL of the next page
+        setTotalPages(Math.ceil(data.count / data.results.length)); // Calculate the total number of pages
         setIsLoaded(false);
       } catch (error) {
         console.log("Error fetching planets:🔥", error);
@@ -42,23 +45,25 @@ const Starships = () => {
     fetchShips();
   }, []);
 
-  // Calculate current planets to display based on pagination ------------------>
-  const indexOfLastShip = currentPage * shipsPerPage;
-  const indexOfFirstShip = indexOfLastShip - shipsPerPage;
-  const currentPlanets = starShips.slice(indexOfFirstShip, indexOfLastShip);
+  // Fetch the next page of data ------------------------>
+  const fetchNextPage = async (page: number) => {
+    try {
+      setIsLoaded(true);
+      const response = await fetch(
+        `https://swapi.dev/api/starships/?page=${page}`
+      );
+      const data = await response.json();
+      const extractedPlanets = data.results.map((ship: any) => ({
+        name: ship.name,
+        model: ship.model,
+        manufacturer: ship.manufacturer,
+      }));
 
-  // Go to previous page ----------------------->
-  const goToPrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1);
-    }
-  };
-
-  // Go to next page ----------------->
-  const goToNextPage = () => {
-    const totalPages = Math.ceil(starShips.length / shipsPerPage);
-    if (currentPage < totalPages) {
-      setCurrentPage((prevPage) => prevPage + 1);
+      setStarShips(extractedPlanets);
+      setNextPageUrl(data.next); // Set the URL of the next page
+      setIsLoaded(false);
+    } catch (error) {
+      console.log("Error fetching planets:🔥", error);
     }
   };
 
@@ -69,28 +74,29 @@ const Starships = () => {
           <Loader />
         </div>
       ) : (
-        <div className={styles.shipParent}>
-          <div className={styles.cardsParent}>
-            {/* ===> vehicles  */}
-            {currentPlanets.map((item, index) => {
-              return (
-                <StarshipCard
-                  name={item.name}
-                  model={item.model}
-                  manufacturer={item.manufacturer}
-                  key={index}
-                />
-              );
-            })}
+        <div className={styles.parent}>
+          <div className={styles.shipParent}>
+            <div className={styles.cardsParent}>
+              {/* ===> vehicles  */}
+              {starShips.map((item, index) => {
+                return (
+                  <StarshipCard
+                    name={item.name}
+                    model={item.model}
+                    manufacturer={item.manufacturer}
+                    key={index}
+                  />
+                );
+              })}
+            </div>
+            {/* Pagination -----------------------> */}
           </div>
-          {/* Pagination -----------------------> */}
           <Pagination
-            numOfCards={starShips}
-            cardsPerPage={shipsPerPage}
+            numOfCards={starShips.length}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            goToPrevPage={goToPrevPage}
-            goToNextPage={goToNextPage}
+            fetchNextPage={fetchNextPage}
+            totalPages={totalPages}
           />
         </div>
       )}

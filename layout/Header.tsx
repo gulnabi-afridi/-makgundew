@@ -95,6 +95,48 @@ const Header = ({
                   </button>
                 );
               })}
+              {/* ===> sign in + sign up button */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "start",
+                  alignItems: "center",
+                  padding: "0px 16px",
+                  gap: "14px",
+                }}
+              >
+                <button
+                  onClick={() => {
+                    setSignUp(false);
+                    setSignIn(true);
+                    setIsOpen(false);
+                  }}
+                  className={` ${
+                    userAuthenticated === true
+                      ? styles.logined
+                      : styles.mobileSignIn
+                  }`}
+                >
+                  Login
+                </button>
+                <button
+                  onClick={() => {
+                    setSignUp(true);
+                    setSignIn(false);
+                    setIsOpen(false);
+                  }}
+                  className={` ${
+                    userAuthenticated === true
+                      ? styles.logined
+                      : styles.mobileSignUp
+                  }`}
+                >
+                  SignUp
+                </button>
+                {userAuthenticated && (
+                  <p className={styles.loginText}>You are log in.....😎</p>
+                )}
+              </div>
             </div>
           </Drawer>
         </div>

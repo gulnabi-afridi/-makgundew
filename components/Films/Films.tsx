@@ -14,8 +14,9 @@ const Films = () => {
   // states ------------------------------->
   const [films, setFilms] = useState<Film[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [filmsPerPage] = useState(3);
   const [isLoaded, setIsLoaded] = useState(true);
+  const [totalPages, setTotalPages] = useState(0);
+  const [nextPageUrl, setNextPageUrl] = useState<string | null>(null);
 
   // here we are fetching the data from the api ------------------->
   useEffect(() => {
@@ -32,6 +33,8 @@ const Films = () => {
         }));
 
         setFilms(extractedPlanets);
+        setNextPageUrl(data.next); // Set the URL of the next page
+        setTotalPages(Math.ceil(data.count / data.results.length)); // Calculate the total number of pages
         setIsLoaded(false);
       } catch (error) {
         console.log("Error fetching planets:🔥", error);
@@ -41,23 +44,23 @@ const Films = () => {
     fetchFilms();
   }, []);
 
-  // Calculate current planets to display based on pagination ------------------>
-  const indexOfLastFilm = currentPage * filmsPerPage;
-  const indexOfFirstFilm = indexOfLastFilm - filmsPerPage;
-  const currentFilms = films.slice(indexOfFirstFilm, indexOfLastFilm);
+  // Fetch the next page of data ------------------------>
+  const fetchNextPage = async (page: number) => {
+    try {
+      setIsLoaded(true);
+      const response = await fetch(`https://swapi.dev/api/films/?page=${page}`);
+      const data = await response.json();
+      const extractedPlanets = data.results.map((film: any) => ({
+        name: film.title,
+        director: film.director,
+        producer: film.producer,
+      }));
 
-  // Go to previous page ----------------------->
-  const goToPrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1);
-    }
-  };
-
-  // Go to next page ----------------->
-  const goToNextPage = () => {
-    const totalPages = Math.ceil(films.length / filmsPerPage);
-    if (currentPage < totalPages) {
-      setCurrentPage((prevPage) => prevPage + 1);
+      setFilms(extractedPlanets);
+      setNextPageUrl(data.next); // Set the URL of the next page
+      setIsLoaded(false);
+    } catch (error) {
+      console.log("Error fetching planets:🔥", error);
     }
   };
 
@@ -68,28 +71,29 @@ const Films = () => {
           <Loader />
         </div>
       ) : (
-        <div className={styles.filmParent}>
-          <div className={styles.cardsParent}>
-            {/* ===> vehicles  */}
-            {currentFilms.map((item, index) => {
-              return (
-                <FilmCard
-                  name={item.name}
-                  producer={item.producer}
-                  director={item.director}
-                  key={index}
-                />
-              );
-            })}
+        <div className={styles.parent}>
+          <div className={styles.filmParent}>
+            <div className={styles.cardsParent}>
+              {/* ===> vehicles  */}
+              {films.map((item, index) => {
+                return (
+                  <FilmCard
+                    name={item.name}
+                    producer={item.producer}
+                    director={item.director}
+                    key={index}
+                  />
+                );
+              })}
+            </div>
           </div>
           {/* Pagination -----------------------> */}
           <Pagination
-            numOfCards={films}
-            cardsPerPage={filmsPerPage}
+            numOfCards={films.length}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            goToPrevPage={goToPrevPage}
-            goToNextPage={goToNextPage}
+            fetchNextPage={fetchNextPage}
+            totalPages={totalPages}
           />
         </div>
       )}

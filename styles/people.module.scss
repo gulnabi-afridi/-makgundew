@@ -9,11 +9,12 @@
   .peopleParent {
     width: 100%;
     display: flex;
-    height: calc(100% - 80px);
+    height: calc(100% - 70px);
     overflow: auto;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 10px;
 
     .cardsParent {
       width: 100%;

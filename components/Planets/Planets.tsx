@@ -53,11 +53,10 @@ const Planets = () => {
         `https://swapi.dev/api/people/?page=${page}`
       );
       const data = await response.json();
-      const extractedPlanets = data.results.map((people: any) => ({
-        name: people.name,
-        height: people.height,
-        mass: people.mass,
-        gender: people.gender,
+      const extractedPlanets = data.results.map((planet: any) => ({
+        name: planet.name,
+        climate: planet.climate,
+        population: planet.population,
       }));
 
       setPlanets(extractedPlanets);

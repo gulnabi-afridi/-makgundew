@@ -6,8 +6,8 @@
   display: flex;
   justify-content: center;
   gap: 14px;
-  height: 80px;
-  align-items: center;
+  height: 60px;
+  align-items: flex-end;
 
   .btn {
     width: 39px;
@@ -56,6 +56,13 @@
 
 @include tablet() {
   .pagination {
-    margin-bottom: 4rem;
+    padding: 50px 0px;
+    gap: 10px;
+    .arrowLeft {
+      margin-right: 4px !important;
+    }
+    .arrowRight {
+      margin-left: 4px !important;
+    }
   }
 }

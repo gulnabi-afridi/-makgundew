@@ -14,7 +14,8 @@ const Species = () => {
   // states ------------------------------->
   const [species, setSpecies] = useState<Species[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [speciesPerPage] = useState(3);
+  const [nextPageUrl, setNextPageUrl] = useState<string | null>(null);
+  const [totalPages, setTotalPages] = useState(0);
   const [isLoaded, setIsLoaded] = useState(true);
 
   // here we are fetching the data from the api ------------------->
@@ -32,6 +33,8 @@ const Species = () => {
         }));
 
         setSpecies(extractedPlanets);
+        setNextPageUrl(data.next); // Set the URL of the next page
+        setTotalPages(Math.ceil(data.count / data.results.length)); // Calculate the total number of pages
         setIsLoaded(false);
       } catch (error) {
         console.log("Error fetching planets:🔥", error);
@@ -41,23 +44,25 @@ const Species = () => {
     fetchSpecies();
   }, []);
 
-  // Calculate current planets to display based on pagination ------------------>
-  const indexOfLastSpecies = currentPage * speciesPerPage;
-  const indexOfFirstSpecies = indexOfLastSpecies - speciesPerPage;
-  const currentSpecies = species.slice(indexOfFirstSpecies, indexOfLastSpecies);
+  // Fetch the next page of data ------------------------>
+  const fetchNextPage = async (page: number) => {
+    try {
+      setIsLoaded(true);
+      const response = await fetch(
+        `https://swapi.dev/api/people/?species=${page}`
+      );
+      const data = await response.json();
+      const extractedPlanets = data.results.map((species: any) => ({
+        name: species.name,
+        classification: species.classification,
+        designation: species.designation,
+      }));
 
-  // Go to previous page ----------------------->
-  const goToPrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1);
-    }
-  };
-
-  // Go to next page ----------------->
-  const goToNextPage = () => {
-    const totalPages = Math.ceil(species.length / speciesPerPage);
-    if (currentPage < totalPages) {
-      setCurrentPage((prevPage) => prevPage + 1);
+      setSpecies(extractedPlanets);
+      setNextPageUrl(data.next); // Set the URL of the next page
+      setIsLoaded(false);
+    } catch (error) {
+      console.log("Error fetching planets:🔥", error);
     }
   };
 
@@ -68,28 +73,29 @@ const Species = () => {
           <Loader />
         </div>
       ) : (
-        <div className={styles.speciesParent}>
-          <div className={styles.cardsParent}>
-            {/* ===> vehicles  */}
-            {currentSpecies.map((item, index) => {
-              return (
-                <SpecieCard
-                  name={item.name}
-                  classification={item.classification}
-                  designation={item.designation}
-                  key={index}
-                />
-              );
-            })}
+        <div className={styles.parent}>
+          <div className={styles.speciesParent}>
+            <div className={styles.cardsParent}>
+              {/* ===> vehicles  */}
+              {species.map((item, index) => {
+                return (
+                  <SpecieCard
+                    name={item.name}
+                    classification={item.classification}
+                    designation={item.designation}
+                    key={index}
+                  />
+                );
+              })}
+            </div>
+            {/* Pagination -----------------------> */}
           </div>
-          {/* Pagination -----------------------> */}
           <Pagination
-            numOfCards={species}
-            cardsPerPage={speciesPerPage}
+            numOfCards={species.length}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            goToPrevPage={goToPrevPage}
-            goToNextPage={goToNextPage}
+            fetchNextPage={fetchNextPage}
+            totalPages={totalPages}
           />
         </div>
       )}
