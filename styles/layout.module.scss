@@ -145,7 +145,13 @@
 
 @include desktop() {
   .loginText {
-    color: $color-primary !important;
+    display: none;
+  }
+  .mobileLoginText {
+    font-size: 24px;
+    font-weight: 600;
+    font-family: "Inter", sans-serif;
+    color: $color-primary;
   }
 }
 @include mobile() {

@@ -134,7 +134,9 @@ const Header = ({
                   SignUp
                 </button>
                 {userAuthenticated && (
-                  <p className={styles.loginText}>You are log in.....😎</p>
+                  <p className={styles.mobileLoginText}>
+                    You are log in.....😎
+                  </p>
                 )}
               </div>
             </div>
